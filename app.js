@@ -25,10 +25,13 @@ app.use(express.static("public"));
 // })
 
 app.get("/posts/:postName", (req, res) => {
-  let search = _.lowerCase(req.params.postName);
+  const search = _.lowerCase(req.params.postName);
+
   posts.forEach(post => {
-    if (_.lowerCase(post.title) == search) {
-      console.log("match found");
+    const matched = _.lowerCase(post.title);
+
+    if (search == matched) {
+      res.render("post", { postTitle: post.title, postContent: post.content });
     }
   });
 });
