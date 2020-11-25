@@ -62,7 +62,11 @@ app.get("/compose", (req, res) => {
 
 
 app.post("/compose", (req, res) => {
-  const post = { title: req.body.postTitle, content: req.body.postText };
+  let pageName = req.body.postTitle.replace(/ /g, "-");
+  pageName = _.toLower(pageName);
+  const post = {
+    title: req.body.postTitle, content: req.body.postText, link: "/posts/" + pageName
+  };
   posts.push(post);
   res.redirect("/");
 });
